@@ -1,6 +1,6 @@
 # a little 電商網站
 
-[DEMO] (https://wanchii.github.io/a_little/dist/#/)
+[DEMO](https://wanchii.github.io/a_little/dist/#/)
 
 ## 使用技術
 
