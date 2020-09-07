@@ -21,7 +21,7 @@ import VueClipboard from 'vue-clipboard2';
 import jquery from 'jquery';
 import 'bootstrap';
 import 'et-line';
-
+import './bus';
 import App from './App.vue';
 import router from './router';
 import currencyFilter from './filters/currency';
