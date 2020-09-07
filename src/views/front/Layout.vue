@@ -15,11 +15,20 @@ import Footer from '@/components/Footer.vue';
 
 export default {
   data() {
-    return {};
+    return {
+      products: [],
+    };
   },
   components: {
     Navbar,
     Footer,
+  },
+  created() {
+    // const url = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/ec/products`;
+    // this.$http.get(url)
+    //   .then((response) => {
+    //     this.products = response.data.data;
+    //   });
   },
 };
 </script>

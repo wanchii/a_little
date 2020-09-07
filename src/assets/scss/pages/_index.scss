@@ -57,6 +57,7 @@
     width: 180px;
     transform: rotateZ(180deg);
     animation-name: shakeHerb;
+    animation-delay: 1s;
     animation-duration: 5s;
 
     @include media-breakpoint-down(sm) {
@@ -96,11 +97,7 @@
     }
 
     40% {
-        transform: rotateZ(0deg);
-    }
-
-    70% {
-        transform: rotateZ(-8deg);
+        transform: rotateZ(-6deg);
     }
 
     100% {
@@ -129,7 +126,7 @@
     // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transform: rotateY(0deg);
     animation-name: flipCard;
-    animation-delay: 3.5s;
+    animation-delay: 4s;
     animation-duration: 5s;
     animation-fill-mode: forwards;
 }

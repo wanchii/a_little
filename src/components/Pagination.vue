@@ -1,8 +1,9 @@
 <template>
-    <nav aria-label="Page navigation example">
-    <ul class="pagination">
-        <li class="page-item" :class="{disabled:pages.current_page===1}">
-            <a class="page-link" href="#" @click.prevent="clickPage(pages.current_page-1)">Prev</a>
+    <nav aria-label="Page navigation example" class="p-3 page">
+    <ul class="pagination justify-content-between mb-0">
+        <li class="page-item mr-2" :class="{disabled:pages.current_page===1}">
+            <a class="btn btn-outline-primary font-weight-bold"
+            href="#" @click.prevent="clickPage(pages.current_page-1)">Prev</a>
             </li>
         <li class="page-item"
         v-for="(item,index) in pages.total_pages"
@@ -10,14 +11,17 @@
         :class="{active:item===pages.current_page}">
             <a class="page-link" href="#" @click.prevent="clickPage(item)">{{ item }}</a>
         </li>
-        <li class="page-item" :class="{disabled:pages.current_page===pages.total_pages}">
-            <a class="page-link" href="#" @click.prevent="clickPage(pages.current_page+1)">Next</a>
+        <li class="page-item ml-2" :class="{disabled:pages.current_page===pages.total_pages}">
+            <a class="btn btn-outline-primary font-weight-bold"
+            href="#" @click.prevent="clickPage(pages.current_page+1)">Next</a>
         </li>
     </ul>
 </nav>
+
 </template>
 
 <script>
+
 export default {
   data() {
     return {

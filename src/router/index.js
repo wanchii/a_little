@@ -20,37 +20,57 @@ const routes = [
     {
       path: '/products',
       component: () => import('../views/front/Products.vue'),
-    }, {
+    },
+    {
       path: '/product/:id',
       component: () => import('../views/front/Product.vue'),
-    }, {
+    },
+    {
       path: '/cart',
       component: () => import('../views/front/Cart.vue'),
     },
+    {
+      path: '/recipe',
+      component: () => import('../views/front/Recipe.vue'),
+    },
+    // {
+    //   path: '/checkout',
+    //   component: () => import('../views/front/Checkout.vue'),
+    // },
     ],
+  },
+  {
+    path: '/checkout',
+    component: () => import('../views/front/Checkout.vue'),
+  },
+  {
+    path: '/welldone',
+    component: () => import('../views/front/Welldone.vue'),
   },
   {
     path: '/login',
     component: () => import('../views/Login.vue'),
-  }, {
+  },
+  {
     path: '/admin',
-    component: () => import('../views/dashboard/Dashboard.vue'),
-    children: [{
-      path: 'products',
-      component: () => import('../views/dashboard/Products.vue'),
-    },
-    {
-      path: 'coupons',
-      component: () => import('../views/dashboard/Coupons.vue'),
-    },
-    {
-      path: 'orders',
-      component: () => import('../views/dashboard/Orders.vue'),
-    },
-    {
-      path: 'storages',
-      component: () => import('../views/dashboard/Storages.vue'),
-    },
+    component: () => import('../views/backend/Dashboard.vue'),
+    children: [
+      {
+        path: 'products',
+        component: () => import('../views/backend/Products.vue'),
+      },
+      {
+        path: 'coupons',
+        component: () => import('../views/backend/Coupons.vue'),
+      },
+      {
+        path: 'orders',
+        component: () => import('../views/backend/Orders.vue'),
+      },
+      {
+        path: 'storages',
+        component: () => import('../views/backend/Storages.vue'),
+      },
     ],
   },
 ];
