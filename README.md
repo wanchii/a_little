@@ -1,24 +1,12 @@
-# a_little
+# a little 電商網站
 
-## Project setup
-```
-npm install
-```
+[DEMO](https://wanchii.github.io/a_little/dist/#/)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## 使用技術
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+##
+頁面及功能
+
+首頁- 
