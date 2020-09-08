@@ -149,6 +149,7 @@ export default {
       switch (type) {
         case 'all':
           this.tempProducts = this.products;
+          this.categoryName = '全部';
           this.isLoading = false;
           break;
         case 'herb':
@@ -170,7 +171,6 @@ export default {
           this.isLoading = false;
           break;
         default:
-          this.categoryName = '全部';
           break;
       }
     },
