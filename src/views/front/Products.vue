@@ -9,9 +9,18 @@
       </div>
       <div class="container">
         <ul class="cateList list-unstyled d-flex py-3 justify-content-center">
-          <li><a href="#" class="h4 px-md-5 px-3 hover-underline">全部</a></li>
-          <li><a href="#" class="h4 px-md-5 px-3 hover-underline">香草</a></li>
-          <li><a href="#" class="h4 px-md-5 px-3 hover-underline">香料</a></li>
+          <li>
+            <a href="#" class="h4 px-md-5 px-3 hover-underline"
+            @click.prevent="clickCategory('all')">全部</a>
+            </li>
+          <li>
+            <a href="#" class="h4 px-md-5 px-3 hover-underline"
+            @click.prevent="clickCategory('herb')">香草</a>
+            </li>
+          <li>
+            <a href="#" class="h4 px-md-5 px-3 hover-underline"
+            @click.prevent="clickCategory('spice')">香料</a>
+            </li>
         </ul>
         <p class="font-weight-bold h4 mb-5 text-center">
           <span class="icon-megaphone"></span>
@@ -24,17 +33,17 @@
     <!-- 主要產品列表 -->
     <section class="products py-5 mb-md-7 mb-5">
       <div class="container">
-        <h2 class="text-primary-dark font-weight-bold ">全部</h2>
+        <h2 class="text-primary-dark font-weight-bold ">{{ categoryName }}</h2>
           <div class="row">
             <div class="col-12">
               <div class="d-flex">
-                <p class="pr-2">共 {{ products.length }} 項</p>
+                <p class="pr-2">共 {{ tempProducts.length }} 項</p>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-lg-3 col-md-6 col-12 mb-4"
-              v-for="item in products" :key="item.id">
+              v-for="item in tempProducts" :key="item.id">
               <div class="card border-0">
                 <router-link :to='`/product/${item.id}`' class="text-decoration-none">
                 <div class="card-img bg-cover d-flex flex-column
@@ -88,14 +97,13 @@ export default {
   data() {
     return {
       products: [],
+      tempProducts: [],
       status: {
         loadingItem: '',
       },
       pagination: {},
-      carts: [],
+      categoryName: '全部',
       isLoading: false,
-      herbArray: [],
-      spiceArray: [],
     };
   },
   components: {
@@ -105,19 +113,6 @@ export default {
   created() {
     this.getProducts();
   },
-  computed: {
-    classify() {
-      this.products.forEach((item) => {
-        if (item.category === '香草') {
-          this.herbArray.push(item);
-        }
-        if (item.category === '香料') {
-          this.spiceArray.push(item);
-        }
-      });
-      return this.products;
-    },
-  },
   methods: {
     getProducts() {
       const url = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/products`;
@@ -126,6 +121,7 @@ export default {
         .get(url)
         .then((res) => {
           this.products = res.data.data;
+          this.tempProducts = this.products;
           this.pagination = res.data.meta.pagination;
           this.isLoading = false;
         })
@@ -146,6 +142,37 @@ export default {
       }).catch(() => {
         this.status.loadingItem = '';
       });
+    },
+    clickCategory(type) {
+      this.isLoading = true;
+      this.tempProducts = [];
+      switch (type) {
+        case 'all':
+          this.tempProducts = this.products;
+          this.isLoading = false;
+          break;
+        case 'herb':
+          this.products.forEach((item) => {
+            if (item.category === '香草') {
+              this.tempProducts.push(item);
+            }
+          });
+          this.categoryName = '香草';
+          this.isLoading = false;
+          break;
+        case 'spice':
+          this.products.forEach((item) => {
+            if (item.category === '香料') {
+              this.tempProducts.push(item);
+            }
+          });
+          this.categoryName = '香料';
+          this.isLoading = false;
+          break;
+        default:
+          this.categoryName = '全部';
+          break;
+      }
     },
   },
 };
