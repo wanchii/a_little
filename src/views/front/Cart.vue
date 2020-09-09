@@ -76,7 +76,7 @@
               </div>
               <div class="d-flex justify-content-end">
                 <router-link class="btn btn-primary font-weight-bold rounded-0 px-6 py-2"
-                  to="/checkout/order"  :class="{disabled:cartTotal < 490}">
+                  to="/checkout_order"  :class="{disabled:cartTotal < 490}">
                   結帳
                 </router-link>
               </div>

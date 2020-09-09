@@ -36,18 +36,12 @@ const routes = [
     ],
   },
   {
-    path: '/checkout',
-    component: () => import('../views/front/Checkout.vue'),
-    children: [
-      {
-        path: 'order',
-        component: () => import('../views/front/Order.vue'),
-      },
-      {
-        path: 'payment',
-        component: () => import('../views/front/Payment.vue'),
-      },
-    ],
+    path: '/checkout_order',
+    component: () => import('../views/front/Checkout_order.vue'),
+  },
+  {
+    path: '/checkout_payment/:id',
+    component: () => import('../views/front/Checkout_payment.vue'),
   },
   {
     path: '/welldone',
