@@ -1,6 +1,9 @@
 <template>
-<section class="cart py-md-7 py-5 mb-md-7 mb-5">
+<section class="cart mb-md-7 mb-5">
   <loading :active.sync="isLoading"></loading>
+  <div class="jumbotron jumbotron-fluid mb-0" style="background-image:url(https://images.pexels.com/photos/3735147/pexels-photo-3735147.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+          background-position: 0% 10%; background-size: cover;height: 300px;">
+  </div>
   <div class="container">
       <div class="row justify-content-center mt-3"
         v-if="carts.length > 0">
@@ -65,45 +68,7 @@
                             <td colspan="5" class="text-right">小計</td>
                             <td class="text-right">{{ cartTotal}}</td>
                         </tr>
-                        <tr>
-                            <td colspan="5" class="text-right">運費</td>
-                            <td class="text-right">{{ deliverFee }}</td>
-                        </tr>
-                        <tr>
-                          <td colspan="4">
-                            <div class="input-group input-group-sm">
-                              <input type="text"
-                                placeholder="請輸入優惠碼" class="form-control rounded-0"
-                                v-model="coupon_code">
-                                <div class="input-group-append">
-                                  <button type="button"
-                                    class="btn btn-outline-secondary rounded-0"
-                                    :class="{disabled:coupon_code===''}"
-                                    @click.prevent="addCouponCode">
-                                    套用優惠碼
-                                    <i v-if="isProcessing"
-                                    class="fas fa-circle-notch fa-spin"></i>
-                                  </button>
-                                </div>
-                            </div>
-                          </td>
-                          <td class="text-right">折扣</td>
-                          <td class="text-right text-danger"
-                          v-if="coupon.enabled">
-                            {{ cartTotal * (coupon.percent / 100) | currency}}
-                          </td>
-                          <td class="text-right text-danger"
-                          v-else>
-                            0
-                          </td>
-                        </tr>
-                        <tr>
-                            <td colspan="5" class="text-right">合計</td>
-                            <td class="text-right">
-                              {{ cartTotal + deliverFee - discount | currency }}
-                            </td>
-                        </tr>
-                        <tr v-if=" countTotal < 490" >
+                        <tr v-if=" cartTotal < 490" >
                             <td colspan="6" class="text-right text-danger">未滿490無法出貨</td>
                         </tr>
                     </tfoot>
@@ -111,7 +76,7 @@
               </div>
               <div class="d-flex justify-content-end">
                 <router-link class="btn btn-primary font-weight-bold rounded-0 px-6 py-2"
-                  to="/checkout"  :class="{disabled:countTotal < 490}">
+                  to="/checkout/order"  :class="{disabled:cartTotal < 490}">
                   結帳
                 </router-link>
               </div>
@@ -119,9 +84,9 @@
       </div>
       <div v-else>
         <div class="row justify-content-center align-items-center my-3">
-          <div class="col-lg-7 col-12">
+          <!-- <div class="col-lg-7 col-12">
             <img src="../../assets/images/pexels-monicore-458796.jpg" alt="">
-          </div>
+          </div> -->
           <div class="col-lg-5 col-12">
             <router-link to="/products"
               class="text-primary-dark d-flex align-items-center justify-content-center">
@@ -149,10 +114,6 @@ export default {
       carts: [],
       cartTotal: 0,
       cartSubTotal: 0,
-      deliverFee: 80,
-      coupon_code: '',
-      coupon: {},
-      discount: 0,
       isLoading: false,
       isProcessing: false,
     };
@@ -162,12 +123,6 @@ export default {
   },
   created() {
     this.getCart();
-  },
-  computed: {
-    countTotal() {
-      return Math.ceil(this.cartTotal + this.deliverFee - this.discount);
-    },
-
   },
   methods: {
     getCart() {
@@ -214,18 +169,6 @@ export default {
         this.isLoading = false;
         this.getCart();
       });
-    },
-    addCouponCode() {
-      const url = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/coupon/search`;
-      this.isProcessing = true;
-      this.$http
-        .post(url, { code: this.coupon_code })
-        .then((res) => {
-          this.getCart();
-          this.coupon = res.data.data;
-          this.discount = this.cartTotal * (this.coupon.percent / 100);
-          this.isProcessing = false;
-        });
     },
   },
 

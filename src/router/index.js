@@ -33,15 +33,21 @@ const routes = [
       path: '/recipe',
       component: () => import('../views/front/Recipe.vue'),
     },
-    // {
-    //   path: '/checkout',
-    //   component: () => import('../views/front/Checkout.vue'),
-    // },
     ],
   },
   {
     path: '/checkout',
     component: () => import('../views/front/Checkout.vue'),
+    children: [
+      {
+        path: 'order',
+        component: () => import('../views/front/Order.vue'),
+      },
+      {
+        path: 'payment',
+        component: () => import('../views/front/Payment.vue'),
+      },
+    ],
   },
   {
     path: '/welldone',
