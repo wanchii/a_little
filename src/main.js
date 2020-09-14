@@ -1,6 +1,9 @@
 import Vue from 'vue';
 
+// import Loading from 'vue-loading-overlay';
+// import 'vue-loading-overlay/dist/vue-loading.css';
 import Loading from 'vue-loading-overlay';
+
 import 'vue-loading-overlay/dist/vue-loading.css';
 
 import axios from 'axios';
@@ -17,7 +20,8 @@ import * as rules from 'vee-validate/dist/rules'; // 規則檔案（ex: email...
 import zhTW from 'vee-validate/dist/locale/zh_TW.json'; // 語系檔案
 
 import VueClipboard from 'vue-clipboard2';
-
+import Toast from 'vue-toastification'; // 訊息提示套件
+import 'vue-toastification/dist/index.css';
 import jquery from 'jquery';
 import 'bootstrap';
 import 'et-line';
@@ -28,8 +32,38 @@ import currencyFilter from './filters/currency';
 
 window.$ = jquery;
 Vue.config.productionTip = false;
+
+Vue.use(Toast, {
+  position: 'bottom-right',
+  newestOnTop: true,
+  maxToasts: 20,
+  transition: 'Vue-Toastification__bounce',
+  transitionDuration: 1000,
+  draggable: true,
+  draggablePercent: 0.6,
+  pauseOnFocusLoss: true,
+  pauseOnHover: true,
+  closeOnClick: true,
+  timeout: 3500,
+  container: document.body,
+  toastClassName: [],
+  bodyClassName: [],
+  hideProgressBar: true,
+  hideCloseButton: false,
+  icon: true,
+});
 Vue.use(VueAxios, axios);
 Vue.use(Loading);
+Vue.use(Loading, {
+  canCancel: false,
+  color: '#B08C7D',
+  loader: 'dots',
+  width: 50,
+  height: 50,
+  backgroundColor: '#ffffff',
+  isFullPage: true,
+  opacity: 0.8,
+});
 Vue.use(VueClipboard);
 Vue.filter('currency', currencyFilter);
 // vee-validate

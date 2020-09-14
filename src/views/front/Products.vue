@@ -1,7 +1,7 @@
 /* eslint-disable prefer-arrow-callback */
 <template>
   <div>
-    <loading :active.sync="isLoading"></loading>
+    <loading :active.sync="isLoading" loader='dots'></loading>
     <!-- 放分類和廣告標語-->
     <section class="mb-5">
       <div class="jumbotron jumbotron-fluid mb-0" style="background-image:url(https://images.pexels.com/photos/3735147/pexels-photo-3735147.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
@@ -55,7 +55,7 @@
                     </router-link>
                     <button type="button" class="btn btn-primary p-md-2 p-3"
                       :disabled="status.loadingItem === item.id"
-                      @click.prevent="addToCart(item.id)">
+                      @click.prevent="addToCart(item.id, item.title)">
                       <i v-if="status.loadingItem === item.id"
                       class="fas fa-circle-notch fa-spin"></i>
                       加到購物車
@@ -129,7 +129,7 @@ export default {
           this.isLoading = false;
         });
     },
-    addToCart(id, quantity = 1) {
+    addToCart(id, name, quantity = 1) {
       this.status.loadingItem = id;
       const url = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/shopping`;
       const cart = {
@@ -137,9 +137,11 @@ export default {
         quantity,
       };
       this.$http.post(url, cart).then(() => {
+        this.$toast.success(`${name}加入購物車`);
         this.$bus.$emit('update-total');
         this.status.loadingItem = '';
       }).catch(() => {
+        this.$toast.error(`${name}加入購物車失敗`);
         this.status.loadingItem = '';
       });
     },

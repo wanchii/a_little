@@ -1,6 +1,6 @@
 <template>
 <section class="cart mb-md-7 mb-5">
-  <loading :active.sync="isLoading"></loading>
+  <loading :active.sync="isLoading" loader='dots'></loading>
   <div class="jumbotron jumbotron-fluid mb-0" style="background-image:url(https://images.pexels.com/photos/3735147/pexels-photo-3735147.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
           background-position: 0% 10%; background-size: cover;height: 300px;">
   </div>
@@ -32,7 +32,7 @@
                           <tr v-for="item in carts" :key="item.product.id">
                               <td class="align-middle text-center">
                                   <button type="button" class="btn text-danger btn-sm"
-                                      @click="removeCartItem(item.product.id)">
+                                      @click="removeCartItem(item.product.id ,item.product.title)">
                                       <i class="fas fa-times"></i>
                                   </button>
                               </td>
@@ -74,7 +74,13 @@
                     </tfoot>
                 </table>
               </div>
-              <div class="d-flex justify-content-end">
+              <div class="d-flex justify-content-between">
+                <router-link
+                class="btn text-primary-dark font-weight-bold rounded-0 px-6 py-2"
+                  to="/products">
+                  <i class="fas fa-angle-left"></i>
+                  繼續購物
+                </router-link>
                 <router-link class="btn btn-primary font-weight-bold rounded-0 px-6 py-2"
                   to="/checkout_order"  :class="{disabled:cartTotal < 490}">
                   結帳
@@ -145,15 +151,19 @@ export default {
       const url = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/shopping/all/product`;
       this.$http.delete(url)
         .then(() => {
+          this.$toast.warning('購物車已清空', {
+            icon: 'fas fa-rocket',
+          });
           this.isLoading = false;
           this.getCart();
         });
     },
-    removeCartItem(id) {
-      this.isLoading = true;
+    removeCartItem(id, name) {
       const url = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/shopping/${id}`;
       this.$http.delete(url).then(() => {
-        this.isLoading = false;
+        this.$toast.warning(`${name}已刪除`, {
+          icon: 'far fa-trash-alt',
+        });
         this.getCart();
       });
     },
