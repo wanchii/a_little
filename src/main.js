@@ -1,9 +1,6 @@
 import Vue from 'vue';
 
-// import Loading from 'vue-loading-overlay';
-// import 'vue-loading-overlay/dist/vue-loading.css';
 import Loading from 'vue-loading-overlay';
-
 import 'vue-loading-overlay/dist/vue-loading.css';
 
 import axios from 'axios';
@@ -18,6 +15,7 @@ import {
 } from 'vee-validate'; // 驗證套件
 import * as rules from 'vee-validate/dist/rules'; // 規則檔案（ex: email...）
 import zhTW from 'vee-validate/dist/locale/zh_TW.json'; // 語系檔案
+import Vue2Editor from 'vue2-editor';
 
 import VueClipboard from 'vue-clipboard2';
 import Toast from 'vue-toastification'; // 訊息提示套件
@@ -64,6 +62,7 @@ Vue.use(Loading, {
   isFullPage: true,
   opacity: 0.8,
 });
+Vue.use(Vue2Editor);
 Vue.use(VueClipboard);
 Vue.filter('currency', currencyFilter);
 // vee-validate
