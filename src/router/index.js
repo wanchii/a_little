@@ -53,23 +53,23 @@ const routes = [
   },
   {
     path: '/admin',
-    component: () => import('../views/backend/Dashboard.vue'),
+    component: () => import('../views/backend/Backend_Dashboard.vue'),
     children: [
       {
         path: 'products',
-        component: () => import('../views/backend/Products.vue'),
+        component: () => import('../views/backend/Backend_Products.vue'),
       },
       {
         path: 'coupons',
-        component: () => import('../views/backend/Coupons.vue'),
+        component: () => import('../views/backend/Backend_Coupons.vue'),
       },
       {
         path: 'orders',
-        component: () => import('../views/backend/Orders.vue'),
+        component: () => import('../views/backend/Backend_Orders.vue'),
       },
       {
         path: 'storages',
-        component: () => import('../views/backend/Storages.vue'),
+        component: () => import('../views/backend/Backend_Storages.vue'),
       },
     ],
   },

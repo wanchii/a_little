@@ -4,7 +4,7 @@
         <div class="container">
             <div class="login-bg d-flex justify-content-center align-items-center">
                 <div class="loginForm p-4 ">
-                    <h1 class="font-weight-bold text-center mb-3"> Login</h1>
+                    <h1 class="font-weight-bold text-center mb-3"> 後台管理</h1>
                     <!-- @submit.prevent，事件修飾符，表單送出後畫面不會重新載入-->
                     <form @submit.prevent="signin">
                         <div class="form-group">
@@ -23,11 +23,11 @@
 
                         <button type="submit" class="btn btn-primary w-100">登入</button>
                     </form>
-                    <button type="button" class="btn btn-outline-primary w-100 mt-3"
-                        disabled>
+                    <router-link class="btn btn-outline-primary w-100 mt-3"
+                      to="/">
                       <i class="fas fa-long-arrow-alt-left"></i>
                         前台
-                    </button>
+                    </router-link>
                     <p class="mt-5 mb-3 text-muted">
                       &copy; 2020~∞ - Emily Chen
                     </p>
@@ -52,6 +52,7 @@ export default {
   },
   methods: {
     signin() {
+      // POST api/auth/login
       this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}auth/login`;
       this.$http.post(url, this.user)
