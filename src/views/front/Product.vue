@@ -1,52 +1,77 @@
 <template>
 <div>
-      <!-- <h2>單一產品頁面</h2>
-      <div class="row mt-3">
-        <div class="col-6">
-          <img :src="product.imageUrl" alt="" class="product-img">
-        </div>
-        <div class="col-6">
-          <div class="d-flex flex-column align-items-start">
-            <h3>{{product.title}}</h3>
-            <p>商品描述:{{product.description}}</p>
-            <p>NT${{product.price}}</p>
-            <div class="d-flex">
-              <div class="btn-group cart-btn-group mr-3" role="group" aria-label="...">
-              <button type="button" class="btn btn-outline-info btn-sm">
-                -
-              </button>
-              <input type="text" size="1" value="1" class="text-center" v-model="quantity">
-              <button type="button" class="btn btn-outline-info btn-sm">
-                +
-              </button>
-            </div>
-            <button type="button" class="btn btn-outline-warning" >Addto Cart</button>
-            </div>
-          </div>
-        </div>
-      </div> -->
   <section class="py-5 mb-md-7 mb-5">
     <div class="container">
       <div class="row no-gutters bg-light">
         <div class="col-md-6 mb-md-0 p-md-4">
-          <div class="h-100 d-flex">
-            <img :src="product.imageUrl" class="w-100"
+          <div class="h-100 d-flex justify-content-center">
+            <img :src="product.imageUrl" class="product-img"
               alt="...">
           </div>
         </div>
         <div class="col-md-6 p-4 pl-md-0">
           <div class="h-100 d-flex flex-column">
-            <h4 class="font-weight-bold py-3">{{product.title}}</h4>
-            <h3 class="pb-3">NT${{product.price}}</h3>
-            <p>商品描述:{{product.description}}</p>
-            <p class="pb-3">
-                八角，又稱八角茴香、大料和大茴香。
+            <h3 class="font-weight-bold py-3">{{product.title}}</h3>
+            <h3 class="pb-3">NT${{ product.price }}/ <small>{{ product.unit }}</small></h3>
+            <p class="pr-5">
+                {{ product.description }}
+            </p>
+            <ul class="list-unstyled d-flex">
+              <li  class="mr-2" v-if="product.options.matchVeg">
+                <span class="badge badge-pill badge-info">蔬菜</span>
+              </li>
+              <li  class="mr-2" v-if="product.options.matchSeafood">
+                <span class="badge badge-pill badge-info">海鮮</span>
+              </li>
+              <li  class="mr-2" v-if="product.options.matchMeat">
+                <span class="badge badge-pill badge-info">肉類</span>
+              </li>
+              <li  class="mr-2" v-if="product.options.matchDessert">
+                <span class="badge badge-pill badge-info">甜點</span>
+              </li>
+              <li  class="mr-2" v-if="product.options.matchFruit">
+                <span class="badge badge-pill badge-info">水果</span>
+              </li>
+              <li  class="mr-2" v-if="product.options.matchDrink">
+                <span class="badge badge-pill badge-info">飲料</span>
+              </li>
+              <li  class="mr-2" v-if="product.options.matchDecoration">
+                <span class="badge badge-pill badge-info">點綴</span>
+              </li>
+              <li class="mr-2"  v-if="product.options.matchRice">
+                <span class="badge badge-pill badge-info">米飯</span>
+              </li>
+            </ul>
+            <div v-if="product.options.packing == '散裝'">
+              <h6 class="text-danger font-weight-bold">
+                <i class="fas fa-info-circle"></i>
+                下單重點
+                </h6>
+              <p>散裝，最低出貨量為10g，也就是一單位為10g
                 <br>
-                具有濃厚的香味，也是五香粉的調味之一</p>
+              若需要20g，商品數量請選擇2個，出貨時會幫你裝成一袋，以此類推</p>
+            </div>
+            <div v-else>
+              <h6 class="text-danger font-weight-bold">
+                <i class="fas fa-info-circle"></i>
+                下單重點
+              </h6>
+              <p>袋裝，一袋為40g
+                <br>
+                當日清晨採收，保存最佳香氣
+              </p>
+            </div>
             <div class="d-flex mt-auto">
                 <input type="number" size="1" value="1" min="1"
                 class="text-center num-control-input ">
-                <button type="button" class="btn btn-primary rounded-0 p-2 ml-3">加入購物車</button>
+            <!-- <button type="button" class="btn btn-primary rounded-0 p-2 ml-3">加入購物車</button> -->
+                <button type="button" class="btn btn-primary rounded-0 p-2 ml-3"
+                      :disabled="status.loadingItem === product.id"
+                      @click.prevent="addToCart(product.id, product.title)">
+                      <i v-if="status.loadingItem === product.id"
+                      class="fas fa-circle-notch fa-spin"></i>
+                      加到購物車
+                </button>
             </div>
           </div>
         </div>
@@ -56,22 +81,14 @@
           <div class="col-md-8 col-12">
             <div class="mb-4">
               <h4 class="pb-3"><span class="text-underline">商品資訊</span></h4>
-              <strong>最少出貨量為1單位 </strong>
-              <p>1單位為10g，如果需要30g請下3單位，依照需要公克數下單數量</p>
-              <ul>
-                <li>內容：散裝顆粒</li>
-                <li>原產地：</li>
-                <li>出貨時商品重量：±5%</li>
-                <li>保存期限：6個月</li>
-                <li>保存條件：陰涼乾燥處存放</li>
-              </ul>
+              <div v-html="product.content" />
             </div>
-            <div class="mb-4">
+            <div class="mb-4" v-if="product.options.recipe" >
               <h4 class="pb-3"><span class="text-underline">料理小撇步</span></h4>
+              <div  v-html="product.options.recipe" />
             </div>
-          </div>
-          <div class="col-md-4 col-12">
-            <img src="" alt="">
+            <div class="mb-4" v-else >
+            </div>
           </div>
         </div>
       </div>
@@ -86,27 +103,57 @@
 export default {
   data() {
     return {
-      product: {},
+      product: {
+        options: {},
+      },
       quantity: 1,
+      status: {
+        loadingItem: '',
+      },
     };
   },
   created() {
     // console.log(this.$route.params.id);
     const { id } = this.$route.params;
     this.$http.get(`${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/product/${id}`)
-      .then((response) => {
-        this.product = response.data.data;
+      .then((res) => {
+        this.product = res.data.data;
       });
+  },
+  methods: {
+    addToCart(id, name, quantity = 1) {
+      this.status.loadingItem = id;
+      const url = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/shopping`;
+      const cart = {
+        product: id,
+        quantity,
+      };
+      this.$http.post(url, cart).then(() => {
+        this.$toast.success(`${name}加入購物車`);
+        this.$bus.$emit('update-total');
+        this.status.loadingItem = '';
+      }).catch(() => {
+        this.$toast.error(`${name}加入購物車失敗`);
+        this.status.loadingItem = '';
+      });
+    },
   },
 
 };
 </script>
 
-<style>
-.product-img{
-  width: 500px;
+<style lang="scss" scoped>
+/* .product-img{
+  width: 360px;
   height: auto;
-  border-radius: 8px;
+  border-radius: 0px;
+} */
+.badge-veg {
+    color: #fff;
+    background-color: #28a745;
+}
+.badge{
+  padding: .5rem .8rem;
 }
 
 </style>

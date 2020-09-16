@@ -41,21 +41,6 @@
     }
 }
 
-//單一產品頁
-//小標題的下底線
-.text-underline {
-    border-bottom: 3px $primary solid;
-    padding-bottom: 5px;
-}
-
-.num-control-input {
-    padding: .5rem .5rem;
-    border-width: 1px;
-    border-style: solid;
-    border-color: $base;
-}
-
-
 //產品頁面分類的hover效果
 
 .cateList {
@@ -89,3 +74,29 @@
     left: 30%;
     width: 50%;
 }
+
+
+//單一產品頁
+//小標題的下底線
+.text-underline {
+    border-bottom: 3px $primary solid;
+    padding-bottom: 5px;
+}
+
+.num-control-input {
+    padding: .5rem .5rem;
+    border-width: 1px;
+    border-style: solid;
+    border-color: $base;
+}
+
+.product-img {
+    width: 360px;
+    height: auto;
+    border-radius: 0px;
+    @include media-breakpoint-down(md) {
+        width: auto;
+    }
+}
+
+

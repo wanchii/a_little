@@ -80,9 +80,9 @@
             </div>
           </div>
           <!-- 分頁碼 -->
-          <div class="d-flex justify-content-center mt-4">
+          <!-- <div class="d-flex justify-content-center mt-4">
             <pagination :pages="pagination" @update="getProducts"></pagination>
-          </div>
+          </div> -->
       </div>
     </section>
     <Subscribe />
@@ -91,7 +91,7 @@
 
 <script>
 import Subscribe from '@/components/Subscribe.vue';
-import Pagination from '@/components/Pagination.vue';
+// import Pagination from '@/components/Pagination.vue';
 
 export default {
   data() {
@@ -108,7 +108,7 @@ export default {
   },
   components: {
     Subscribe,
-    Pagination,
+    // Pagination,
   },
   created() {
     this.getProducts();
