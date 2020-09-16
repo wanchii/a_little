@@ -67,10 +67,6 @@
                                     <div class="form-group">
                                         <label for="customFile">
                                         或 上傳圖片
-                                        <!-- <span class="material-icons align-middle"
-                                        v-if="status.fileUploading">
-                                          hourglass_top
-                                        </span> -->
                                         <i class="fas fa-cog fa-spin"
                                         v-if="status.fileUploading"></i>
                                         </label>
@@ -120,17 +116,107 @@
                                             id="inputPrice" v-model="tempData.price">
                                         </div>
                                     </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputOriginPlace">產地</label>
+                                            <input type="text" class="form-control"
+                                            placeholder="請輸入原產地"
+                                            id="inputOriginPlace"
+                                            v-model="tempData.options.origin_place">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                          <label for="choosePackage">包裝方式</label>
+                                          <select
+                                            id="choosePackage"
+                                            v-model="tempData.options.packing"
+                                            class="form-control"
+                                          >
+                                            <option
+                                              disabled
+                                              selected
+                                              value=""
+                                            >
+                                              請選擇
+                                            </option>
+                                            <option value="袋裝">
+                                              袋裝
+                                            </option>
+                                            <option value="散裝">
+                                              散裝
+                                            </option>
+
+                                          </select>
+                                        </div>
+
+                                    </div>
                                     <hr>
                                     <div class="form-group">
-                                        <label for="inputContent">產品描述*</label>
-                                        <textarea class="form-control" id="inputContent" rows="3"
-                                            v-model="tempData.content"></textarea>
+                                        <label for="inputContent">產品說明*</label>
+                                      <!-- <textarea class="form-control" id="inputContent" rows="3"
+                                            v-model="tempData.content"></textarea> -->
+                                        <VueEditor id="inputContent"
+                                          v-model="tempData.content"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputDescription">說明內容*</label>
+                                        <label for="inputDescription">產品描述*</label>
                                         <textarea class="form-control" id="inputDescription"
                                         rows="3"
                                         v-model="tempData.description"></textarea>
+                                        <!-- <VueEditor id="inputDescription"
+                                          v-model="tempData.description"/> -->
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputRecipe">料理方式</label>
+                                        <VueEditor id="inputRecipe"
+                                          v-model="tempData.options.recipe"/>
+                                    </div>
+                                    <div class="form-group">
+                                        適配
+                                        <div class="px-2">
+                                          <input type="checkbox" id="match"
+                                          v-model="tempData.options.matchVeg">
+                                          <label for="match">蔬菜</label>
+                                        </div>
+                                        <div class="px-2">
+                                          <input type="checkbox" id="match"
+                                          v-model="tempData.options.matchSeafood">
+                                          <label for="match">海鮮</label>
+                                        </div>
+                                        <div class="px-2">
+                                          <input type="checkbox" id="match"
+                                          v-model="tempData.options.matchMeat">
+                                          <label for="match">肉類</label>
+                                        </div>
+                                        <div class="px-2">
+                                          <input type="checkbox" id="match"
+                                          v-model="tempData.options.matchDessert">
+                                          <label for="match">甜點</label>
+                                        </div>
+                                        <div class="px-2">
+                                          <input type="checkbox" id="match"
+                                          v-model="tempData.options.matchFruit">
+                                          <label for="match">水果</label>
+                                        </div>
+                                        <div class="px-2">
+                                          <input type="checkbox" id="match"
+                                          v-model="tempData.options.matchDrink">
+                                          <label for="match">飲料</label>
+                                        </div>
+                                        <div class="px-2">
+                                          <input type="checkbox" id="match"
+                                          v-model="tempData.options.matchDecoration">
+                                          <label for="match">點綴</label>
+                                        </div>
+                                        <div class="px-2">
+                                          <input type="checkbox" id="match"
+                                          v-model="tempData.options.matchRice">
+                                          <label for="match">米飯</label>
+                                        </div>
+                                        <div class="px-2">
+                                          <input type="checkbox" id="match"
+                                          v-model="tempData.options.matchSoup">
+                                          <label for="match">湯品</label>
+                                        </div>
                                     </div>
                                     <div class="form-group form-check">
                                         <input type="checkbox" class="form-check-input"
@@ -180,6 +266,7 @@
 <script>
 /* global $ */
 import Pagination from '@/components/Pagination.vue';
+import { VueEditor } from 'vue2-editor';
 
 export default {
   data() {
@@ -188,6 +275,7 @@ export default {
       pagination: {},
       tempData: {
         imageUrl: [],
+        options: {},
       },
       isLoading: false,
       status: {
@@ -198,18 +286,9 @@ export default {
   props: ['token'],
   components: {
     Pagination,
+    VueEditor,
   },
   created() {
-    // const url = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/ec/products`;
-    // this.$http.get(url)
-    //   .then((response) => {
-    //     this.products = response.data.data;
-    //   }).catch((error) => {
-    //     // eslint-disable-next-line no-console
-    //     console.log(error);
-    //     this.$router.push('login');
-    //   });
-    // GET api/{uuid}/admin/storage
     this.getProducts();
   },
   methods: {
@@ -224,6 +303,7 @@ export default {
           if (this.tempData.id) {
             this.tempData = {
               imageUrl: [],
+              options: {},
             };
             $('#productModal').modal('hide');
           }
@@ -248,6 +328,7 @@ export default {
         case 'new':
           this.tempData = {
             imageUrl: [],
+            options: {},
           };
           $('#productModal').modal('show');
           break;
