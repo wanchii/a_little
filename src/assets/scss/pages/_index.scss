@@ -1,6 +1,7 @@
 // banner區塊
 .banner {
     color: $primary-dark;
+
     @include media-breakpoint-down(sm) {
         color: #fff;
     }
@@ -52,111 +53,6 @@
     transform: scaleX(1);
 }
 
-//動畫效果
-.herb {
-    width: 180px;
-    transform: rotateZ(180deg);
-    animation-name: shakeHerb;
-    animation-delay: 1s;
-    animation-duration: 5s;
-
-    @include media-breakpoint-down(sm) {
-        width: 150px;
-    }
-}
-
-@keyframes shakeHerb {
-    0% {
-        transform: rotateZ(200deg);
-    }
-
-    50% {
-        transform: rotateZ(160deg);
-    }
-
-    100% {
-        transform: rotateZ(180deg);
-    }
-}
-
-.spice {
-    width: 180px;
-    transform: rotateZ(0deg);
-    animation-name: shakeSpice;
-    animation-delay: 2s;
-    animation-duration: 5s;
-
-    @include media-breakpoint-down(sm) {
-        width: 150px;
-    }
-}
-
-@keyframes shakeSpice {
-    0% {
-        transform: rotateZ(8deg);
-    }
-
-    40% {
-        transform: rotateZ(-6deg);
-    }
-
-    100% {
-        transform: rotateZ(0deg);
-    }
-}
-
-.flip-card {
-    background-color: transparent;
-    width: 200px;
-    height: 100px;
-    perspective: 1000px;
-
-    @include media-breakpoint-down(sm) {
-        width: 180px;
-    }
-}
-
-.flip-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    transition: transform 0.5s;
-    transform-style: preserve-3d;
-    // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    transform: rotateY(0deg);
-    animation-name: flipCard;
-    animation-delay: 4s;
-    animation-duration: 5s;
-    animation-fill-mode: forwards;
-}
-
-.flip-card-front,
-.flip-card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-}
-
-.flip-card-front {
-    background-color: transparent;
-}
-
-.flip-card-back {
-    background-color: transparent;
-    transform: rotateY(180deg);
-}
-
-@keyframes flipCard {
-    0% {
-        transform: rotateY(0deg);
-    }
-
-    100% {
-        transform: rotateY(180deg);
-    }
-}
 
 //intro
 .intro {
@@ -173,6 +69,7 @@
     width: auto;
     height: 147px;
 }
+
 .hover-bg {
     overflow: hidden;
     transition: all 0.5s ease-in-out;
@@ -181,6 +78,7 @@
         background-size: 200%;
     }
 }
+
 //特色
 .features-item {
     padding: 1rem;
@@ -192,14 +90,17 @@
     font-size: 48px;
     color: #000;
 }
+
 .features-content {
     padding: 1rem;
     text-align: center;
     font-weight: bold;
     background: $light;
+
     &:hover {
         background: $base;
     }
+
     .features-text {
         position: absolute;
         top: 50%;
@@ -212,3 +113,165 @@
 
 
 
+//use
+// Accordion Height
+$a-height: 180px;
+// Position text along bottom
+$text-offset: $a-height - 90;
+
+.accordion {
+    width: 100%;
+    max-width: 1080px;
+    height: $a-height;
+    overflow: hidden;
+    margin: 56px auto;
+    @include media-breakpoint-down(sm) {
+        height: auto;
+    }
+
+    ul {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+        margin: 0;
+        padding: 0;
+
+        li {
+            display: table-cell;
+            position: relative;
+            width: 25%;
+            height: $a-height;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: contain;
+            transition: all 500ms ease;
+
+            div {
+                display: block;
+                overflow: hidden;
+                width: 100%;
+
+                a {
+                    display: block;
+                    height: $a-height;
+                    width: 100%;
+                    position: relative;
+                    z-index: 3;
+                    padding: 8px 16px;
+                    color: #fff;
+                    text-decoration: none;
+                    transition: all 200ms ease;
+
+                    * {
+                        opacity: 0;
+                        margin: 0;
+                        width: 100%;
+                        text-overflow: ellipsis;
+                        position: relative;
+                        z-index: 5;
+                        white-space: wrap;
+                        overflow: hidden;
+                        -webkit-transform: translateX(-20px);
+                        transform: translateX(-20px);
+                        -webkit-transition: all 400ms ease;
+                        transition: all 400ms ease;
+                    }
+
+                    h2 {
+                        text-overflow: clip;
+                        font-size: 24px;
+                        margin-bottom: 2px;
+                        top: $text-offset;
+                    }
+
+                    p {
+                        top: $text-offset;
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+
+        // Background images
+        li:nth-child(1) {
+            // background-image: url('https://images.unsplash.com/photo-1516658713486-48a292b2eea3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60');
+            background-image: url('https://images.unsplash.com/photo-1588347818036-558601350947?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80');
+        }
+
+        li:nth-child(2) {
+            background-image: url('https://hexschool-api.s3.us-west-2.amazonaws.com/custom/m2MUSaS31jrVVVB9J8K18dn9a3HrygS4PTHyti0JN7bke6ZSMa7MU27wbH5V7Fg3GRD2al4gpFhZMjCEdaSj66w1ddDY28NDm7A0V3RXKOjaEaaKvwtylZEIewLDTJ9v.jpg');
+        }
+
+        li:nth-child(3) {
+            // background-image: url('https://hexschool-api.s3.us-west-2.amazonaws.com/custom/slf9y8FWO7mUvBw55h7Is4u7mGWODSHZyaniAja4mhl1WXYETsm2yq6sFUtEQNyPfeivSNUziie7j6BtSxpBPBPAgvNFYkNddJMAHaSqY0a2DuKLRyuznMm9hmRoXMET.png'),
+            //     linear-gradient(#f1e8e9, #F4EEEE);
+            background-image: url('https://hexschool-api.s3.us-west-2.amazonaws.com/custom/ECL30cCVr6hCkWtRWmJ0uCprbm3IUQf4PYlYl5o6W6Nd1nmlFPYeI7pgFGseYL0E5090AqEJ0EViZyRBnCAshkq1kqRTr2Wdsk9iJdpcWqp3m1PSsmSwAFyqJgLKUc56.jpg');
+        }
+
+        li:nth-child(4) {
+            background-image: url('https://hexschool-api.s3.us-west-2.amazonaws.com/custom/JZgFWEoCaYXo69Qy41H9JbrYmkbfs946hbiW4bitxFTqi61dblAt4GpnRgtcLrFnweCvAeXzPOTvPfhtlHso7mXkvLk3npTXRLBaV0f4H0eqjVh6LH18YUcBVgwGDAi9.jpg');
+        }
+    }
+}
+
+.accordion ul {
+    &:hover li,
+    &:focus-within li {
+        width: 8%;
+        background-size: cover;
+    }
+    li:focus {
+        outline: none;
+    }
+    &:hover li:hover,
+    li:focus,
+    &:focus-within li:focus {
+        width: 20%;
+        a {
+            background: rgba(0, 0, 0, .4);
+            * {
+                opacity: 1;
+                -webkit-transform: translateX(0);
+                transform: translateX(0);
+            }
+        }
+    }
+    &:hover li {
+        width: 8%;
+        a * {
+            opacity: 0;
+        }
+    }
+
+    &:hover li:hover {
+        width: 20%;
+
+        a {
+            background: rgba(0, 0, 0, .4);
+
+            * {
+                opacity: 1;
+                -webkit-transform: translateX(0);
+                transform: translateX(0);
+            }
+        }
+    }
+}
+
+.accordion {
+    @include media-breakpoint-down(sm) {
+        ul,
+        ul:hover {
+            li,
+            li:hover {
+                position: relative;
+                display: table;
+                table-layout: fixed;
+                width: 100%;
+                -webkit-transition: none;
+                transition: none;
+                margin-bottom: 1rem;
+            }
+        }
+    }
+}
