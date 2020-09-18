@@ -17,9 +17,11 @@ import * as rules from 'vee-validate/dist/rules'; // 規則檔案（ex: email...
 import zhTW from 'vee-validate/dist/locale/zh_TW.json'; // 語系檔案
 import Vue2Editor from 'vue2-editor';
 
-import VueClipboard from 'vue-clipboard2';
+import VueClipboard from 'vue-clipboard2'; // 複製套件
 import Toast from 'vue-toastification'; // 訊息提示套件
 import 'vue-toastification/dist/index.css';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import jquery from 'jquery';
 import 'bootstrap';
 import 'et-line';
@@ -62,6 +64,7 @@ Vue.use(Loading, {
   isFullPage: true,
   opacity: 0.8,
 });
+
 Vue.use(Vue2Editor);
 Vue.use(VueClipboard);
 Vue.filter('currency', currencyFilter);
@@ -82,6 +85,11 @@ Vue.component('ValidationProvider', ValidationProvider);
 Vue.component('Loading', Loading);
 
 new Vue({
+  created() {
+    AOS.init({
+
+    });
+  },
   router,
   render: (h) => h(App),
 }).$mount('#app');
