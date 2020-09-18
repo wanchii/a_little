@@ -81,7 +81,7 @@
       </div>
       <div
       data-aos="fade-right" data-aos-duration="1000"
-      class="row flex-row-reverse mb-5 bg-base">
+      class="row flex-row-reverse mb-5 bg-light">
         <div class="col-md-6 bg-cover"
           style="
           background-image:url(https://images.pexels.com/photos/1666061/pexels-photo-1666061.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500);
