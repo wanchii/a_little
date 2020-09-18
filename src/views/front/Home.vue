@@ -24,24 +24,6 @@
     </section>
     <!-- use -->
     <section class="use container mb-md-7 mb-5 py-7">
-      <!-- <div class="d-flex justify-content-center text-primary-dark font-weight-bold mb-4">
-        <h2
-        data-aos="fade-down"
-        data-aos-anchor-placement="top-bottom">
-        香草
-        </h2>
-        <h2
-        data-aos="fade-down"
-        data-aos-anchor-placement="top-bottom" data-aos-delay="300">
-          &
-        </h2>
-        <h2
-        data-aos="fade-down"
-        data-aos-anchor-placement="top-bottom" data-aos-delay="100">
-        香料
-        </h2>
-        <h2>可以用在...</h2>
-      </div> -->
       <h2
       data-aos="fade-down"
       class="text-center text-primary-dark font-weight-bold mb-4">
@@ -222,7 +204,6 @@ export default {
 <style lang="scss" scoped>
 
   .banner-bg {
-    // background-image: url(../assets/images/muradi-0b8NaL2CMaQ-unsplash-lg.jpg);
     background-image: url(../../assets/images/muradi-0b8NaL2CMaQ-unsplash-lg.jpg);
     position: absolute;
     top: 0;
