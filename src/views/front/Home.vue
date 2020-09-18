@@ -24,7 +24,7 @@
     </section>
     <!-- use -->
     <section class="use container mb-md-7 mb-5 py-7">
-      <div class="d-flex justify-content-center text-primary-dark font-weight-bold mb-4">
+      <!-- <div class="d-flex justify-content-center text-primary-dark font-weight-bold mb-4">
         <h2
         data-aos="fade-down"
         data-aos-anchor-placement="top-bottom">
@@ -41,13 +41,12 @@
         香料
         </h2>
         <h2>可以用在...</h2>
-      </div>
-      <!-- <h2
-      data-aos="fade-down" data-aos-delay="50"
+      </div> -->
+      <h2
+      data-aos="fade-down"
       class="text-center text-primary-dark font-weight-bold mb-4">
-      香料 & 香草 可以用在...</h2> -->
+      香料 & 香草 可以用在...</h2>
       <p
-      data-aos="fade-up" data-aos-duration="800" data-aos-delay="80"
       class="text-center text-primary font-weight-bold">
         料理除了食材的原味外
         <br>
@@ -142,11 +141,8 @@
     <!-- tips用在 -->
     <section class="mb-md-7 mb-5 py-7">
       <h2
-      data-aos="fade-left"
       class="text-primary-dark font-weight-bold text-center mb-3">美味秘訣</h2>
       <h4
-      data-aos="fade-left"
-      data-aos-delay="300"
       class="font-weight-bold text-center mb-5">就是灑上一點香料，趕快來去購買</h4>
       <div class="container">
         <div class="row">
