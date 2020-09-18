@@ -48,8 +48,8 @@
             </tbody>
         </table>
         <!-- 頁碼 -->
-        <div class="d-flex justify-content-center my-4">
-            <pagination :pages="pagination" @update="getProducts"></pagination>
+          <div class="d-flex justify-content-center my-4">
+            <pagination :pages="pagination" @update="getStorages"></pagination>
           </div>
         <!-- 刪除 Modal -->
         <div class="modal fade" id="delModal"
